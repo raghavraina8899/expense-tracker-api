@@ -18,7 +18,10 @@ class ExpenseResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'amount' => $this->amount,
-            'category' => $this->category,
+            'category' => $this->whenLoaded('category', fn () => [
+                'id' => $this->category->id,
+                'name' => $this->category->name,
+            ]),
             'payment_method' => $this->payment_method,
             'expense_date' => $this->expense_date->format('Y-m-d'),
             'receipt_no' => $this->receipt_no,

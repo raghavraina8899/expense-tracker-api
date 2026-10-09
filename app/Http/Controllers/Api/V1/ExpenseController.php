@@ -37,7 +37,7 @@ class ExpenseController extends Controller
 
     public function show(Expense $expense): JsonResponse
     {
-        return $this->successResponse(new ExpenseResource($expense), 'Expense retrieved successfully!');
+        return $this->successResponse(new ExpenseResource($expense->load('category')), 'Expense retrieved successfully!');
     }
 
     public function store(StoreExpenseRequest $request): JsonResponse
@@ -46,13 +46,13 @@ class ExpenseController extends Controller
 
         $expense = Expense::create($data);
 
-        return $this->successResponse(new ExpenseResource($expense), 'Expense created successfully!', 201);
+        return $this->successResponse(new ExpenseResource($expense->load('category')), 'Expense created successfully!', 201);
     }
 
     public function update(UpdateExpenseRequest $request, Expense $expense): JsonResponse
     {
         $expense->update($request->validated());
-        return $this->successResponse(new ExpenseResource($expense), 'Expense updated successfully!');
+        return $this->successResponse(new ExpenseResource($expense->load('category')), 'Expense updated successfully!');
     }
 
     public function destroy(Expense $expense): JsonResponse
@@ -68,6 +68,6 @@ class ExpenseController extends Controller
         }
 
         $expense->restore();
-        return $this->successResponse(new ExpenseResource($expense), 'Expense restored successfully!');
+        return $this->successResponse(new ExpenseResource($expense->load('category')), 'Expense restored successfully!');
     }
 }

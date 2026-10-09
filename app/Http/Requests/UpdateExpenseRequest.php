@@ -27,7 +27,7 @@ class UpdateExpenseRequest extends FormRequest
         return [
             'title' => ['sometimes', 'required', 'string', 'max:255'],
             'amount' => ['sometimes', 'required', 'numeric', 'decimal:0,2', 'gt:0'],
-            'category' => ['sometimes', 'required', Rule::in(Expense::CATEGORIES)],
+            'category_id' => ['sometimes', 'required', 'integer', 'exists:categories,id'],
             'payment_method' => ['sometimes', 'required', Rule::in(Expense::PAYMENT_METHODS)],
             'expense_date' => ['sometimes', 'required', 'date', 'before_or_equal:today'],
             'receipt_no' => ['sometimes', 'nullable', 'string', 'max:255', Rule::unique('expenses', 'receipt_no')->ignore($this->route('expense'))],

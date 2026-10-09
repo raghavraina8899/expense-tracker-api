@@ -27,7 +27,7 @@ class StoreExpenseRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'amount' => ['required', 'numeric', 'decimal:0,2', 'gt:0'],
-            'category' => ['required', Rule::in(Expense::CATEGORIES)],
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
             'payment_method' => ['required', Rule::in(Expense::PAYMENT_METHODS)],
             'expense_date' => ['required', 'date', 'before_or_equal:today'],
             'receipt_no' => ['nullable', 'string', 'max:255', 'unique:expenses,receipt_no'],
